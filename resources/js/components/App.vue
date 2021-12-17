@@ -29,14 +29,14 @@
 
         <section class="mt-8 py-4 border-t border-gray-100">
             <h4 class="font-bold text-emerald-500 text-xl">Comments ({{ comments.length }})</h4>
-            <CommentBox class="mt-4" @submit="addComment" />
+            <CommentBox class="mt-4" @submitted="fetchComments" />
 
             <div class="mb-32 mt-8">
                 <CommentItem
                     :key="comment.id"
                     v-for="comment in comments"
                     :comment="comment"
-                    @reply="addComment"
+                    @replied="fetchComments"
                 />
             </div>
         </section>
@@ -70,17 +70,6 @@ export default {
         fetchComments() {
             fetch("/api/comments").then((res) => res.json()).then(response => {
                 this.comments = response;
-            });
-        },
-        addComment(comment) {
-            fetch("/api/comments", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify(comment),
-            }).then((res) => res.json()).then(() => {
-                this.fetchComments();
             });
         },
     },

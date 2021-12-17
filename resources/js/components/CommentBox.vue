@@ -13,9 +13,19 @@
         :errors="errors"
         v-model="comment.text"
     />
-    <button class="bg-emerald-500 text-white px-5 py-1 rounded-md">
-        Comment
-    </button>
+    <div class="flex w-full space-x-2">
+        <button 
+            :disabled="isLoading"
+            class="bg-emerald-500 transition-colors disabled:opacity-70 hover:bg-emerald-400 text-white px-5 py-1 rounded-md">
+            {{ submitText }}
+        </button>
+        <button
+            :disabled="isLoading" 
+            @click.prevent="onDiscard" 
+            class="bg-gray-500 transition-colors disabled:opacity-70 hover:bg-gray-400 text-white px-5 py-1 rounded-md">
+            Discard
+        </button>
+    </div>
 </form>
 </template>
 
@@ -41,8 +51,14 @@ export default {
                 user_name: "",
                 text: "",
             },
-            errors: {}
+            errors: {},
+            isLoading: false,
         };
+    },
+    computed: {
+        submitText() {
+            return this.isLoading ? 'Submitting...' : 'Submit';
+        }
     },
     methods: {
         validate(formData, requiredFields) {
@@ -54,20 +70,44 @@ export default {
             }, {});
             return Object.keys(errors).length === 0 ? null : errors;
         },
-        onSubmit() {
+        clear() {
+            this.comment.text = "";
+            this.comment.user_name = "";
+            this.errors = {};
+            this.isLoading = false;
+
+        },
+        async addComment(comment) {
+            const res = await fetch("/api/comments", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(comment),
+            });
+            return await res.json();
+        },
+        async onSubmit() {
             const errors = this.validate(this.comment, ["user_name", "text"]);
-            if (errors) {
+            if (errors && !this.isLoading) {
                 this.errors = errors;
                 return;
             }
-            this.$emit("submit", {
+
+            this.isLoading = true;
+            const comment = await this.addComment({
                 ...this.comment,
                 level: this.level,
                 comment_id: this.parentId,
-            });
-            this.comment.text = "";
-            this.comment.user_name = "";
+            })
+            this.$emit("submitted", comment);
+            this.clear();
+
         },
+        onDiscard() {
+            this.clear();
+            this.$emit("discard");
+        }
     },
 }
 </script>
