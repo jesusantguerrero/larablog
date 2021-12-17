@@ -31,7 +31,7 @@
             <h4 class="font-bold text-emerald-500 text-xl">Comments ({{ comments.length }})</h4>
             <CommentBox class="mt-4" @submitted="fetchComments" />
 
-            <div class="mb-32 mt-8">
+            <div class="mb-32 mt-8 divide-y-2 divide-gray-50">
                 <CommentItem
                     :key="comment.id"
                     v-for="comment in comments"

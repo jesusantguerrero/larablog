@@ -4,7 +4,7 @@
         v-for="comment in comments"
         :key="comment.id"
         :comment="comment"
-        @reply="$emit('reply', $event)"
+        @replied="$emit('replied', $event)"
     />
 </div>
 </template>
