@@ -21,9 +21,7 @@
         </style>
     </head>
     <body class="antialiased">
-        <div class="relative flex items-top justify-center min-h-screen bg-gray-100 dark:bg-gray-900 sm:items-center py-4 sm:pt-0">
-
-        </div>
+        <main id="app"></main>
 
         <script src="{{ asset('js/manifest.js') }}" defer></script>
         <script src="{{ asset('js/vendor.js') }}" defer></script>
