@@ -60,11 +60,14 @@ export default {
                 this.errors = errors;
                 return;
             }
-            this.$emit("submit", this.comment);
+            this.$emit("submit", {
+                ...this.comment,
+                level: this.level,
+                comment_id: this.parentId,
+            });
             this.comment.text = "";
             this.comment.user_name = "";
         },
     },
-    components: { FormField }
 }
 </script>

@@ -29,6 +29,15 @@
     <section class="mt-5">
         <h4 class="font-bold text-emerald-500 text-xl">Comments</h4>
         <CommentBox class="mt-5" @submit="addComment" />
+
+        <div class="mb-32">
+            <CommentItem
+                :key="comment.id"
+                v-for="comment in comments"
+                :comment="comment"
+                @reply="addComment"
+            />
+        </div>
     </section>
 </article>
 
@@ -37,6 +46,7 @@
 <script>
 import AppHeader from "./AppHeader.vue";
 import CommentBox from "./CommentBox.vue";
+import CommentItem from "./CommentItem.vue";
 
 export default {
     name: "App",
@@ -67,15 +77,15 @@ export default {
                     "Content-Type": "application/json",
                 },
                 body: JSON.stringify(comment),
-            }).then((res) => res.json()).then(response => {
-                this.comments.push(response);
+            }).then((res) => res.json()).then(() => {
+                this.fetchComments();
             });
         },
     },
     async mounted() {
         await this.fetchComments();
     },
-    components: { AppHeader, CommentBox }
+    components: { AppHeader, CommentBox, CommentItem }
 }
 
 </script>
