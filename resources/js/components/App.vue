@@ -25,16 +25,24 @@
             Pellentesque bibendum habitant mattis purus morbi, nostra mus neque ultrices, facilisis inceptos himenaeos imperdiet. Vulputate vel convallis laoreet dui natoque habitant, placerat ornare ridiculus magnis molestie tempus faucibus, tristique a dignissim lobortis tincidunt. Condimentum est ultricies neque volutpat cum urna lectus eros aliquam integer aptent, rutrum in donec purus mus habitant ridiculus lacinia ante habitasse massa porta, a dictumst laoreet quis diam dictum venenatis lacus convallis egestas.
         </p>
     </section>
+
+    <section class="mt-5">
+        <h4 class="font-bold text-emerald-500 text-xl">Comments</h4>
+        <CommentBox class="mt-5" @submit="addComment" />
+    </section>
 </article>
 
 </template>
 
 <script>
 import AppHeader from "./AppHeader.vue";
+import CommentBox from "./CommentBox.vue";
+
 export default {
     name: "App",
     components: {
         AppHeader,
+        CommentBox,
     },
     data() {
         return {
@@ -51,12 +59,23 @@ export default {
             fetch("/api/comments").then((res) => res.json()).then(response => {
                 this.comments = response;
             });
-        }
+        },
+        addComment(comment) {
+            fetch("/api/comments", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(comment),
+            }).then((res) => res.json()).then(response => {
+                this.comments.push(response);
+            });
+        },
     },
     async mounted() {
         await this.fetchComments();
     },
-    components: { AppHeader }
+    components: { AppHeader, CommentBox }
 }
 
 </script>
