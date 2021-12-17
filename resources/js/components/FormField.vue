@@ -5,7 +5,7 @@
         ref="input"
         :placeholder="label"
         :value="value"
-        class="w-full block border-b border-gray-400 focus:outline-none"
+        class="w-full px-2 py-1 block border-b border-gray-200 bg-transparent focus:outline-none focus:border-emerald-400"
         @input="$emit('input', $event.target.value)"
     />
     <small class="block text-red-400" v-if="errorMessage">{{ prettyError }}</small>

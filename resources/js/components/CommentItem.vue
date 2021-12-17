@@ -15,14 +15,16 @@
         {{ comment.text }}
     </p>
 
-   <div class="px-5">
-        <button v-if="allowReply" class="text-emerald-500 hover:bg-gray-100 rounded-md transition px-5 py-1 rounded-md inline-block" @click="toggleCommentBox">
+   <div class="px-5 flex space-x-3 items-center" v-if="allowReply">
+        <button  class="text-emerald-500 hover:bg-gray-100 rounded-md transition px-5 py-1 rounded-md inline-block" @click="toggleCommentBox">
             Reply
         </button>
+        <span class="font-bold block text-gray-400"> Replies ({{ comment.replies.length }})</span>
    </div>
 
     <div :style="marginStyle">
         <CommentBox
+            class="mt-2 rounded-md border bg-gray-50 border-gray-100 px-5 py-2"
             v-if="showCommentBox"
             :level="comment.level + 1"
             :parentId="comment.id"
