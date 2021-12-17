@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Comment extends Model
 {
     use HasFactory;
+    const MAX_LEVEL = 3;
 
     protected $fillable = [
         'post_id',
@@ -19,6 +20,6 @@ class Comment extends Model
 
     public function replies()
     {
-        return $this->hasMany(Comment::class, 'comment_id');
+        return $this->hasMany(Comment::class, 'comment_id')->with(['replies'])->orderBy('created_at', 'desc');
     }
 }
