@@ -14,15 +14,15 @@
         v-model="comment.text"
     />
     <div class="flex w-full space-x-2">
-        <button 
+        <button
             :disabled="isLoading"
-            class="bg-emerald-500 transition-colors disabled:opacity-70 hover:bg-emerald-400 text-white px-5 py-1 rounded-md">
+            class="px-5 py-1 text-white transition-colors rounded-md bg-emerald-500 disabled:opacity-70 hover:bg-emerald-400">
             {{ submitText }}
         </button>
         <button
-            :disabled="isLoading" 
-            @click.prevent="onDiscard" 
-            class="bg-gray-500 transition-colors disabled:opacity-70 hover:bg-gray-400 text-white px-5 py-1 rounded-md">
+            :disabled="isLoading"
+            @click.prevent="onDiscard"
+            class="px-5 py-1 text-white transition-colors bg-gray-500 rounded-md disabled:opacity-70 hover:bg-gray-400">
             Discard
         </button>
     </div>

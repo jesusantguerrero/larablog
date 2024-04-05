@@ -1,22 +1,8 @@
-<template>
-<div class="w-full">
-    <component
-        :is="tag"
-        ref="input"
-        :placeholder="label"
-        :value="value"
-        class="w-full px-2 py-1 block border-b border-gray-200 bg-transparent focus:outline-none focus:border-emerald-400"
-        @input="$emit('input', $event.target.value)"
-    />
-    <small class="block text-red-400" v-if="errorMessage">{{ prettyError }}</small>
-</div>
-</template>
-
 <script>
 export default {
     name: "FormField",
     props: {
-        value: {
+        modelValue: {
             type: String,
             default: "",
         },
@@ -38,7 +24,7 @@ export default {
         },
     },
     watch: {
-        value(value) {
+        modelValue(value) {
             if (!value) {
                 this.$refs.input.value = "";
             }
@@ -54,3 +40,19 @@ export default {
     }
 }
 </script>
+
+
+<template>
+<div class="w-full">
+    <component
+        :is="tag"
+        ref="input"
+        :placeholder="label"
+        :value="modelValue"
+        class="block w-full px-2 py-1 bg-transparent border-b border-gray-200 focus:outline-none focus:border-emerald-400"
+        @input="$emit('update:modelValue', $event.target.value)"
+    />
+    <small class="block text-red-400" v-if="errorMessage">{{ prettyError }}</small>
+</div>
+</template>
+
