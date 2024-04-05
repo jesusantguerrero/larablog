@@ -1,14 +1,14 @@
 <template>
 <div class="w-full">
-    <AppHeader class="max-w-6xl mx-auto px-8 md:px-0" />
-    <article class="max-w-6xl mx-auto text-gray-700 px-8 md:px-0">
+    <AppHeader class="max-w-6xl px-8 mx-auto md:px-0" />
+    <article class="max-w-6xl px-8 mx-auto text-gray-700 md:px-0">
         <section class="mt-16 space-y-5 ">
-            <h2 class="text-4xl font-bold"> Post Title</h2>
-            <div class="flex md:flex-row flex-col text-gray-400 md:space-x-3">
+            <h2 class="text-4xl font-bold"> The post title</h2>
+            <div class="flex flex-col text-gray-400 md:flex-row md:space-x-3">
                 <span class="font-bold">{{ metadata.date}}</span>
                 <span>{{ metadata.autorName }}</span>
                 <div class="space-x-1">
-                    <span v-for="tag in metadata.tags" class="cursor-pointer text-emerald-500 font-bold hover:text-emerald-400">
+                    <span v-for="tag in metadata.tags" class="font-bold cursor-pointer text-emerald-500 hover:text-emerald-400">
                         #{{ tag }}
                     </span>
                 </div>
@@ -27,11 +27,11 @@
             </p>
         </section>
 
-        <section class="mt-8 py-4 border-t border-gray-100">
-            <h4 class="font-bold text-emerald-500 text-xl">Comments ({{ comments.length }})</h4>
+        <section class="py-4 mt-8 border-t border-gray-100">
+            <h4 class="text-xl font-bold text-emerald-500">Comments ({{ comments.length }})</h4>
             <CommentBox class="mt-4" @submitted="fetchComments" />
 
-            <div class="mb-32 mt-8 divide-y-2 divide-gray-50">
+            <div class="mt-8 mb-32 divide-y-2 divide-gray-50">
                 <CommentItem
                     :key="comment.id"
                     v-for="comment in comments"

@@ -27,12 +27,7 @@ Then, open up the `.env` file and update your *DB_DATABASE*, *DB_USERNAME*, and 
 ```bash
 APP_URL=http://127.0.0.1:8000/
 
-DB_CONNECTION=mysql
-DB_HOST=127.0.0.1
-DB_PORT=3306
-DB_DATABASE=larablog
-DB_USERNAME=root
-DB_PASSWORD=
+DB_CONNECTION=sqlite
 ```
 
 ### 3. Add Composer Dependencies
